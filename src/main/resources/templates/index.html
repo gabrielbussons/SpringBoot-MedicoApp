@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	  
+<head>
+	<title>Medico app</title>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+	
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+
+<body> 
+	<form method="post" th:action="@{/filtrarSituacao}"
+	<div class="container">
+	  <div class="collection with-header">
+	    <div style="margin-left: 20px; margin-right: 20px">
+	
+			<h1>Lista de Especialidades
+			
+			<button class="btn waves-effect waves-light" style="float: right; margin-top: 25px; background-color: darkblue" type="submit" name="action">Atualizar
+			   <i class="material-icons right">sync</i>
+			</button>
+			</h1>
+			
+			<p> 
+				<h5>Situação Especialidades:
+				<label>
+			      <input class="with-gap" value="T" name="especialidadeSituacao" type="radio" checked />
+			      <span>Todos</span>
+			    </label>&nbsp;
+			    
+			    <label>
+			      <input class="with-gap" value="S" name="especialidadeSituacao" type="radio" />
+			      <span>Ativos</span>
+			    </label>&nbsp;
+			    
+			    <label>
+			      <input class="with-gap" value="N" name="especialidadeSituacao" type="radio" />
+			      <span>Inativos</span>
+			    </label>&nbsp;
+	
+			    </h5>
+			</p>
+			
+			<table class="striped">
+		        <thead>
+		          <tr>
+		              <th>Nome</th>
+		              <th>Descrição</th>
+		              <th>Situação</th>
+		              <th>Ações</th>
+		          </tr>
+		        </thead>
+		
+		        <tbody>
+		          <tr th:each="e : ${especialidades}">
+		            <td><span th:text="${e.nome}" /></td>
+		            <td><span th:text="${e.descricao}" /></td>
+		            <td th:if="${e.ativo}"><span th:text="Ativo" /></td>
+		            <td th:if="!${e.ativo}"><span th:text="Inativo" /></td>
+		            <td>
+		           		<a  class="waves-effect waves-light btn-small" th:href="@{/medicosEspecialidade.{id} (id=${e.id})}">
+		            	<i class="material-icons black-text" title="Visualizar medicos dessa modalidade">people</i></a>
+		            	
+		           		<a  th:if="${e.ativo}" class="waves-effect waves-light btn-small" th:href="@{/alterarSituacaoEspecialidade.{id} (id=${e.id})}">
+		            	<i class="material-icons white-text" title="Desativar Especialidade">clear</i></a>
+		            	
+		            	<a  th:if="!${e.ativo}" class="waves-effect waves-light btn-small" th:href="@{/alterarSituacaoEspecialidade.{id} (id=${e.id})}">
+		            	<i class="material-icons white-text" title="Ativar Especialidade">check</i></a>
+		            	            	
+		            	<a  class="waves-effect waves-light btn-small" th:href="@{/especialidade.{id} (id=${e.id})}">
+		            	<i class="material-icons black-text" title="Editar">edit</i></a>
+		            	
+		            	<a  class="waves-effect waves-red btn-small" th:href="@{/excluirEspecialidade.{id} (id=${e.id})}">
+		            	<i class="material-icons red-text" title="Excluir">delete</i></a>
+		
+		            </td>
+		          </tr>
+		        </tbody>
+		      </table>
+			
+			<h3><a href="/cadastrarEspecialidade" class="waves-effect waves-light btn-large">Cadastrar Especialidade</a></h3>
+	
+			<hr><h1>Lista de Médicos</h1>
+			
+			<p> 
+				<h5>Situação Médicos:
+				<label>
+			      <input class="with-gap" value="T" name="medicoSituacao" type="radio" checked />
+			      <span>Todos</span>
+			    </label>&nbsp;
+			    
+			    <label>
+			      <input class="with-gap" value="S" name="medicoSituacao" type="radio" />
+			      <span>Ativos</span>
+			    </label>&nbsp;
+			    
+			    <label>
+			      <input class="with-gap" value="N" name="medicoSituacao" type="radio" />
+			      <span>Inativos</span>
+			    </label>&nbsp;
+	
+			    </h5>
+			</p>
+			
+			<table class="striped">
+		        <thead>
+		          <tr>
+		              <th>Nome</th>
+		              <th>Data Nascimento</th>
+		              <th>Situação</th>
+		              <th>Ações</th>
+		          </tr>
+		        </thead>
+		
+		        <tbody>
+		          <tr th:each="m : ${medicos}">
+		            <td><span th:text="${m.nome}" /></td>
+		            <td><span th:text="${#dates.format(m.dataNascimento, 'dd/MM/yyyy')}" /></td>
+		            <td th:if="${m.ativo}"><span th:text="Ativo" /></td>
+		            <td th:if="!${m.ativo}"><span th:text="Inativo" /></td>
+		            <td>
+		            	<a  th:if="${m.ativo}" class="waves-effect waves-light btn-small" th:href="@{/alterarSituacaoMedico.{id} (id=${m.id})}">
+		            	<i class="material-icons white-text" title="Desativar Usuário">clear</i></a>
+		            	
+		            	<a  th:if="!${m.ativo}" class="waves-effect waves-light btn-small" th:href="@{/alterarSituacaoMedico.{id} (id=${m.id})}">
+		            	<i class="material-icons white-text" title="Ativar Usuário">check</i></a>
+		            	
+		            	
+		            	<a  class="waves-effect waves-light btn-small" th:href="@{/medico.{id} (id=${m.id})}">
+		            	<i class="material-icons black-text" title="Editar">edit</i></a>
+		            	
+		            	<a  class="waves-effect waves-red btn-small" th:href="@{/excluirMedico.{id} (id=${m.id})}">
+		            	<i class="material-icons red-text" title="Excluir">delete</i></a>
+		
+		            </td>
+		          </tr>
+		        </tbody>
+		      </table>
+			
+			<h3><a href="/cadastrarMedico" class="waves-effect waves-light btn-large">Cadastrar Médico</a></h3>
+		</div>
+	  </div>
+	</div>
+	</form>
+	
+	
+	
+	
+	
+	<!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	  
+<head>
+	<title>Medico app</title>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+	
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+
+<body> 
+
+	<div class="container">
+	  <div class="collection with-header">
+	    <div style="margin-left: 20px; margin-right: 20px">
+
+			<h2 style="text-align: center">Médicos associados à <span th:text="${especialidade.nome}" /></h2><hr>
+			
+			
+			<table class="striped">
+		        <thead>
+		          <tr>
+		              <th>Nome</th>
+		              <th>Data Nascimento</th>
+		              <th>Situação</th>
+		              <th>Ações</th>
+		          </tr>
+		        </thead>
+		
+		        <tbody>
+		          <tr th:each="m : ${medicos}">
+		            <td><span th:text="${m.nome}" /></td>
+		            <td><span th:text="${#dates.format(m.dataNascimento, 'dd/MM/yyyy')}" /></td>
+		            <td th:if="${m.ativo}"><span th:text="Ativo" /></td>
+		            <td th:if="!${m.ativo}"><span th:text="Inativo" /></td>
+		            <td>	
+		            	<a  class="waves-effect waves-red btn-small" th:href="@{/retirarMedico.{idMedico}-{idEspecialidade} (idMedico=${m.id}, idEspecialidade=${especialidade.id} )}">
+		            	<i class="material-icons black-text" title="Remover médico dessa especialidade">clear</i></a>
+		
+		            </td>
+		          </tr>
+		        </tbody>
+		      </table>
+		      <p th:if="${#lists.isEmpty(medicos)}" style="text-align: center; color: red">NÃO HÁ MÉDICOS ASSOCIADOS À ESPECIALIDADE</p><hr>
+		      <p><a href="/" class="waves-effect waves-light btn-large">Voltar</a></p>
+		</div>
+	  </div>
+	</div>
+	
+	
+	
+	
+	
+	<!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<head>
+	<title>Medico app</title>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+	
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+	    
+
+<body>
+	<div class="container">
+		<div class="collection with-header">
+		  <div style="margin-left: 20px; margin-right: 20px">
+			<h1>Alterar Médico</h1><hr>
+			<form th:action="@{/editarMedico.{id} (id=*{id})}"
+				th:object="${medico}" method="POST">
+				
+				Nome: <input type="text" name="nome" th:field="*{nome}" required/>
+				
+				Data Nascimento: <input type="date" name="dataNascimento" th:field="*{dataNascimento}" required/>
+				
+				 <!--<div class="input-field col s12">
+					<select multiple name="especialidades" required>
+						<option value="">Selecione uma especialidade</option>
+						<option th:each="esp : ${especialidades}"
+								th:value="${esp}"
+								th:text="${esp.nome}">
+						</option>
+					</select>
+					<label>Associar especialidades
+				</div>-->
+				<p>
+					<a href="/" class="waves-effect waves-light btn-large">Voltar</a>
+					<button style="background-color: darkblue" type="submit" class="waves-effect waves-light btn-large">Alterar</button>
+				</p>
+			</form>
+		  </div>
+		</div>
+	</div>
+	<div class="container" style="border-radius: 10px;">
+		<ul class="collection with-header">
+	        <li class="collection-header"><h4>Especialidades de <span th:text="${medico.nome}" /></h4></li>
+	        <li class="collection-item" style="text-align: center; color: red" th:if="${#lists.isEmpty(medicoEspecialidades)}">
+	        NÃO HÁ ESPECIALIDADES ASSOCIADAS AO MÉDICO </li>
+	        <li class="collection-item" style="background-color: lightgreen" th:each="esp: ${medicoEspecialidades}">
+	        	<div><span th:text="${esp.nome}" /><a title="O médico já pertence a essa especialidade"
+	        	class="secondary-content"><i class="material-icons">check</i></a></div>					
+	        </li>
+	        <li class="collection-item" th:each="esp: ${medicoNaoEspecialidades}">
+	        	<div><span th:text="${esp.nome}" />
+	        	<a href="" th:href="@{/associarEspecialidade.{idMedico}-{idEspecialidade} (idMedico=${medico.id}, idEspecialidade=${esp.id} )}" 
+	        	title="Associar especialidade ao médico" class="secondary-content"><i class="material-icons">add_circle_outline</i></a></div>					
+	        </li>
+	    </ul>
+    </div>
+</body>
+
+</html>

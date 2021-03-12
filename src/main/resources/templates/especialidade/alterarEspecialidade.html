@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	  
+<head>
+	<title>Medico app</title>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+	
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+
+	<div class="container">
+		<div class="collection with-header">
+		  <div style="margin-left: 20px; margin-right: 20px">
+			<h2>Alterar Especialidade</h2><hr>
+			
+			<form th:action="@{/editarEspecialidade.{id} (id=*{id})}"
+				th:object="${especialidade}" method="POST">
+				
+				Nome: <input type="text" name="nome" th:field="*{nome}" required/>
+				
+				Descrição: <input type="text" name="descricao" th:field="*{descricao}" required/><br>
+				
+				<p>
+					<a href="/" class="waves-effect waves-light btn-large">Voltar</a>
+					<button style="background-color: darkblue" type="submit" class="waves-effect waves-light btn-large">Alterar</button>
+				</p>
+			</form>
+		  </div>
+	  </div>
+	</div>
+	
+	<!--JavaScript at end of body for optimized loading-->
+      <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+      
+</body>
+
+
+</html>

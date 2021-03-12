@@ -83,6 +83,7 @@
 		          </tr>
 		        </tbody>
 		      </table>
+		    <p th:if="${#lists.isEmpty(especialidades)}" style="text-align: center; color: red">NÃO HÁ ESPECIALIDADES CADASTRADAS</p><hr>
 			
 			<h3><a href="/cadastrarEspecialidade" class="waves-effect waves-light btn-large">Cadastrar Especialidade</a></h3>
 	
@@ -142,6 +143,7 @@
 		          </tr>
 		        </tbody>
 		      </table>
+		      <p th:if="${#lists.isEmpty(medicos)}" style="text-align: center; color: red">NÃO HÁ MÉDICOS CADASTRADOS</p><hr>
 			
 			<h3><a href="/cadastrarMedico" class="waves-effect waves-light btn-large">Cadastrar Médico</a></h3>
 		</div>

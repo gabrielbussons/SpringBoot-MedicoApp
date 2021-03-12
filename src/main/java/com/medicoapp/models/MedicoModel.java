@@ -39,8 +39,7 @@ public class MedicoModel implements Serializable{
 	
 	private boolean ativo;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable
+	@ManyToMany
     private Set<EspecialidadeModel> especialidades;
 
 	public long getId() {

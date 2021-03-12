@@ -117,6 +117,12 @@ public class EspecialidadeController {
 	public String excluirEspecialidade(@PathVariable("id") long id) {
 		
 		EspecialidadeModel especialidadeModel = espRepository.findById(id);
+		
+		for (MedicoModel medico : especialidadeModel.getMedicos()) {
+		     medico.getEspecialidades().remove(especialidadeModel);
+		     medRepository.save(medico);
+		}
+		
 		espRepository.delete(especialidadeModel);
 		
 		return "redirect:/";

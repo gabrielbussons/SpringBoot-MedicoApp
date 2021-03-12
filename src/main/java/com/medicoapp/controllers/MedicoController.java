@@ -110,8 +110,11 @@ public class MedicoController {
 	@RequestMapping(value="/editarMedico.{id}", method=RequestMethod.POST)
 	public String editarMedico(MedicoModel medicoModel) throws Exception {
 		
+		MedicoModel medico = medRepository.findById(medicoModel.getId());
+		
 		try {
 			validaFilto(medicoModel);
+			medicoModel.setAtivo(medico.isAtivo());
 			medRepository.save(medicoModel);
 		} catch (Exception e) {
 			throw new Exception(e);

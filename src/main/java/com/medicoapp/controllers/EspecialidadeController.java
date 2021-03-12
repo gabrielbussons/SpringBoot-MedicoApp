@@ -103,8 +103,11 @@ public class EspecialidadeController {
 	@RequestMapping(value="/editarEspecialidade.{id}", method=RequestMethod.POST)
 	public String editarEspecialidade(EspecialidadeModel especialidadeModel) throws Exception {
 		
+		EspecialidadeModel especialidade = espRepository.findById(especialidadeModel.getId());
+		
 		try {
 			validaFilto(especialidadeModel);
+			especialidadeModel.setAtivo(especialidade.isAtivo());
 			espRepository.save(especialidadeModel);
 		} catch (Exception e) {
 			throw new Exception(e);
